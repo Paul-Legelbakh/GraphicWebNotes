@@ -1,0 +1,59 @@
+﻿@model WebNotesDataBase.Models.Note
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Note</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EditedDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EditedDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.User.NameAuthor)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.User.NameAuthor)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Label)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Label)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Body)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Body)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info" })
+            </div>
+        }
+    </div>
+

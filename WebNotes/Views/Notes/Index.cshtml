@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<WebNotesDataBase.Models.Note>
+    @using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+
+<br/>
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary"} )
+        <span class="pull-right">
+            @Html.ActionLink("Account", "../Users/Details", null, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("LogOut", "../Users/LogOut", null, new { @class = "btn btn-info" })
+        </span>
+    </p>
+    <table class="table">
+        <tr>
+            <th>CreatedDate</th>
+            <th>EditedDate</th>
+            <th>NameAuthor</th>
+            <th>Label</th>
+            <th>Body</th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.NameAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td width="320">
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.NoteId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.NoteId }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.NoteId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+    </table>
+<br/>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page } ))
+

@@ -43,13 +43,13 @@ namespace WebNotes.Controllers
                 cookie.Expires = DateTime.Now.AddDays(-1);
                 Response.Cookies.Add(cookie);
             }
-            return RedirectToAction("../Home/Index");
+            return RedirectToAction("../Users/Login");
         }
 
         [HttpPost]
         public ActionResult Login(string email, string pass)
         {
-            User auth = userRepository.Get(u => u.Email == email).SingleOrDefault();
+            User auth = uowUser.GetByEmail(email);
             if(auth != null && auth.Pass == pass)
             {
                 var cookie = new HttpCookie("login")
@@ -69,7 +69,7 @@ namespace WebNotes.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,NameAuthor,Birthday,Email,Pass")] User user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uowUser.GetByEmail(user.Email) == null)
             {
                 userRepository.Insert(user);
                 userRepository.Save();

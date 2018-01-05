@@ -19,10 +19,8 @@ namespace WebNotesDataBase.DAL
             dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -57,6 +55,10 @@ namespace WebNotesDataBase.DAL
             dbSet.Add(entity);
         }
 
+        public virtual int CountElements()
+        {
+            return dbSet.Count();
+        }
         //public virtual TEntity GetByColumnValue(string column, object value)
         //{
         //    TEntity entity = dbSet.Single(e => e.GetType().GetProperty(column).GetValue(e) == value);

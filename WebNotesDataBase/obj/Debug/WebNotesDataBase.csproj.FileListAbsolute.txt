@@ -104,3 +104,4 @@ C:\Users\Paul\Documents\Projects\WebNotes\WebNotesDataBase\obj\Debug\WebNotesDat
 C:\Users\Paul\Documents\Projects\WebNotes\WebNotesDataBase\bin\ru\EntityFramework.resources.dll
 C:\Users\Paul\Documents\Projects\WebNotes\WebNotesDataBase\bin\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\Paul\Documents\Projects\WebNotes\WebNotesDataBase\obj\Debug\WebNotesDataBase.Migrations.MigrateWebNotesDataBase.resources
+C:\Users\Paul\Documents\Projects\WebNotes\WebNotesDataBase\obj\Debug\WebNotesDataBase.Migrations.MigrateWebNotesDataBase1.resources

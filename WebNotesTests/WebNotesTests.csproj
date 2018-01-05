@@ -97,9 +97,9 @@
       <Project>{C41C2571-8A64-479E-98E7-BCD798A28E43}</Project>
       <Name>WebNotesDataBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebNotes\GraphicWebNotes.csproj">
+    <ProjectReference Include="..\WebNotes\WebNotes.csproj">
       <Project>{8CAE154D-713B-400E-A2AF-987BC6AB2E45}</Project>
-      <Name>GraphicWebNotes</Name>
+      <Name>WebNotes</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

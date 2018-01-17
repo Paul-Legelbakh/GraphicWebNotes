@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 using WebNotesDataBase.Models;
 
 namespace WebNotesDataBase.DAL
@@ -34,7 +33,6 @@ namespace WebNotesDataBase.DAL
             {
                 query = query.Include(includeProperty);
             }
-
             if (orderBy != null)
             {
                 return orderBy(query).ToList();
@@ -44,7 +42,6 @@ namespace WebNotesDataBase.DAL
                 return query.ToList();
             }
         }
-
         public virtual TEntity GetByID(object id)
         {
             return dbSet.Find(id);
@@ -59,11 +56,6 @@ namespace WebNotesDataBase.DAL
         {
             return dbSet.Count();
         }
-        //public virtual TEntity GetByColumnValue(string column, object value)
-        //{
-        //    TEntity entity = dbSet.Single(e => e.GetType().GetProperty(column).GetValue(e) == value);
-        //    return entity;
-        //}
 
         public virtual void Delete(object id)
         {

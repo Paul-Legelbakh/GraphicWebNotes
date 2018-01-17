@@ -8,7 +8,7 @@ namespace WebNotesDataBase.Models
 {
     public class Note
     {
-        public Note() { }
+        public Note(){}
         [Key]
         public int NoteId { get; set; }
         public DateTime? CreatedDate { get; set; }

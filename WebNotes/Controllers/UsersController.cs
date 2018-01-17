@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -9,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebNotesDataBase.DAL;
 using WebNotesDataBase.Models;
+using WebNotesDataBase.ViewModels;
 
 namespace WebNotes.Controllers
 {
@@ -67,10 +69,12 @@ namespace WebNotes.Controllers
             //registration
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,NameAuthor,Birthday,Email,Pass")] User user)
+        //public ActionResult Create([Bind(Include = "UserId,NameAuthor,Birthday,Email,Pass")] User user)
+        public ActionResult Create(RegisterUserViewModel model)
         {
-            if (ModelState.IsValid && uowUser.GetByEmail(user.Email) == null)
+            if (ModelState.IsValid && uowUser.GetByEmail(model.Email) == null)
             {
+                var user = Mapper.Map<RegisterUserViewModel, User>(model);
                 userRepository.Insert(user);
                 userRepository.Save();
                 return RedirectToAction("Login");
@@ -95,11 +99,11 @@ namespace WebNotes.Controllers
         //GET: Users/Details/5
         public ActionResult Details()
         {
-            User user = null;
+            RegisterUserViewModel user = null;
             if (Request.Cookies["login"] != null)
             {
                 int id = Convert.ToInt32(Request.Cookies["login"].Value);
-                user = userRepository.GetByID(id);
+                user = Mapper.Map<User, RegisterUserViewModel>(userRepository.GetByID(id));
             }
             if (user == null)
             {
@@ -116,7 +120,7 @@ namespace WebNotes.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = userRepository.GetByID(id);
+            var user = Mapper.Map<User, EditUserViewModel>(userRepository.GetByID(id));
             if (user == null)
             {
                 return HttpNotFound();
@@ -129,14 +133,21 @@ namespace WebNotes.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,NameAuthor,Birthday,Pass")] User user)
+        //public ActionResult Edit([Bind(Include = "UserId,NameAuthor,Birthday,Pass")] User user)
+        public ActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                userRepository.Update(user);
+                User user = Mapper.Map<EditUserViewModel, User>(model);
+                User usr = userRepository.GetByID(user.UserId);
+                usr.NameAuthor = user.NameAuthor;
+                usr.Birthday = user.Birthday;
+                usr.Email = user.Email;
+                usr.Pass = user.Pass;
+                userRepository.Update(usr);
                 userRepository.Save();
             }
-            return View(user);
+            return View(model);
         }
 
     }

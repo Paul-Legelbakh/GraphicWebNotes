@@ -19,9 +19,13 @@
                 .WithMany(user => user.Notes)
                 .HasForeignKey(note => note.UserId)
                 .WillCascadeOnDelete(false);
-            //modelBuilder.Entity<User>()
-            //    .HasIndex(user => user.Email)
-            //    .IsUnique();
+            modelBuilder.Entity<User>()
+                .HasIndex(user => user.Email)
+                .IsUnique();
+            modelBuilder.Entity<User>()
+                .HasMany(user => user.Notes)
+                .WithRequired(note => note.User)
+                .HasForeignKey(note => note.UserId);
             base.OnModelCreating(modelBuilder);
         }
     }
